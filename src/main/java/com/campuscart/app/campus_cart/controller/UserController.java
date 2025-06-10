@@ -2,6 +2,8 @@ package com.campuscart.app.campus_cart.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
 
 import com.campuscart.app.campus_cart.model.User;
 import com.campuscart.app.campus_cart.repository.UserRepository;
@@ -17,17 +19,30 @@ public class UserController {
 
     private UserRepository userRepository;
 
-    @PostMapping("/createuser")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/{username}")
-    public User getUser(@PathVariable String username) {
-        return userRepository.findByUsername(username);
+    @PostMapping("/createuser")
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        try {
+            User savedUser = userRepository.save(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log to console
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .body("Failed to create user: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/{email}")
+    public User getUser(@PathVariable String email) {
+        return userRepository.findByEmail(email);
     }
 
     
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         if (!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
