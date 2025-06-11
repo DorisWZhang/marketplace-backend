@@ -47,7 +47,7 @@ public class UserController {
             if (password.equals(user.getPassword())) {
                 return ResponseEntity.ok(user);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password.");
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
