@@ -35,6 +35,25 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
+        System.out.println(loginRequest);
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        User user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            if (password.equals(user.getPassword())) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
 
     @GetMapping("/{email}")
     public User getUser(@PathVariable String email) {
@@ -52,6 +71,4 @@ public class UserController {
         return ResponseEntity.ok("User deleted successfully.");
     }
     
-    
-
 }
