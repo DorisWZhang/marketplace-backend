@@ -55,11 +55,10 @@ public class UserController {
         }
     }
 
-    @PutMapping("/updateuser")
-    public ResponseEntity<?> putMethodName(@RequestBody User user) {
-        String email = user.getEmail();
-        User savedUser = userRepository.findByEmail(email);
-
+    @PutMapping("/updateuser/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User savedUser = userRepository.findById(id).orElse(null);
+    
         if (savedUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
@@ -70,7 +69,6 @@ public class UserController {
         savedUser.setGender(user.getGender());
         savedUser.setLocation(user.getLocation());
         savedUser.setUniversity(user.getUniversity());
-
         userRepository.save(savedUser);
         return ResponseEntity.ok(savedUser);
     }
