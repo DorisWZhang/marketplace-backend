@@ -13,6 +13,7 @@ import java.util.List;
 
 
 
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -52,6 +53,26 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
+    }
+
+    @PutMapping("/updateuser")
+    public ResponseEntity<?> putMethodName(@RequestBody User user) {
+        String email = user.getEmail();
+        User savedUser = userRepository.findByEmail(email);
+
+        if (savedUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+        
+        //update editable information
+        savedUser.setName(user.getName());
+        savedUser.setAge(user.getAge());
+        savedUser.setGender(user.getGender());
+        savedUser.setLocation(user.getLocation());
+        savedUser.setUniversity(user.getUniversity());
+
+        userRepository.save(savedUser);
+        return ResponseEntity.ok(savedUser);
     }
 
 
