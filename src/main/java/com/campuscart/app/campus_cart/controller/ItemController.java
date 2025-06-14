@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 
 
 import com.campuscart.app.campus_cart.model.Item;
+import com.campuscart.app.campus_cart.model.User;
 import com.campuscart.app.campus_cart.repository.ItemRepository;
 import com.campuscart.app.campus_cart.repository.UserRepository;
 
@@ -22,5 +23,19 @@ public class ItemController {
     public ItemController(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
+
+    @PostMapping("/createitem")
+    public ResponseEntity<?> createItem(@RequestBody Item item) {
+        try {
+            System.out.println("Creating item: " + item);
+            Item savedItem = itemRepository.save(item);
+            return ResponseEntity.ok(savedItem);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log to console
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .body("Failed to create item posting: " + e.getMessage());
+        }
+    }
+
     
 }

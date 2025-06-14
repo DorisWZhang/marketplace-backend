@@ -1,5 +1,7 @@
 package com.campuscart.app.campus_cart.model;
+
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "items")
@@ -7,28 +9,32 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String title;
 
-    private String sellerID;
-    
-    private String description;
+    @Column(name = "seller_id")
+    private Long sellerID;
 
+    private String description;
     private double price;
-    
     private String location;
 
-    private String postedTime;
+    @Column(name = "posted_time")
+    private LocalDateTime postedTime;
 
     private int views;
-
     private String image;
-
     private boolean sold;
 
+    public Item() {
+        this.views = 0;
+        this.sold = false;
+        this.postedTime = LocalDateTime.now();
+    }
 
-    public Item(String id, String title, String sellerID, String description, double price, String location, String postedTime, int views, String image, boolean sold) {
+    public Item(Long id, String title, Long sellerID, String description, double price, String location,
+                LocalDateTime postedTime, int views, String image, boolean sold) {
         this.id = id;
         this.title = title;
         this.sellerID = sellerID;
@@ -38,10 +44,11 @@ public class Item {
         this.postedTime = postedTime;
         this.views = views;
         this.image = image;
-        this.sold = sold;       
+        this.sold = sold;
     }
 
-    public Item(String title, String sellerID, String description, double price, String location, String postedTime, String views, String image) {
+    public Item(String title, Long sellerID, String description, double price, String location,
+                LocalDateTime postedTime, String image) {
         this.title = title;
         this.sellerID = sellerID;
         this.description = description;
@@ -50,20 +57,20 @@ public class Item {
         this.postedTime = postedTime;
         this.views = 0;
         this.image = image;
-        this.sold = false;  
-        
+        this.sold = false;
     }
 
     public void addView() {
         this.views++;
     }
+
     // Getters and Setters
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,11 +82,11 @@ public class Item {
         this.title = title;
     }
 
-    public String getSellerID() {
+    public Long getSellerID() {
         return sellerID;
     }
 
-    public void setSellerID(String sellerID) {
+    public void setSellerID(Long sellerID) {
         this.sellerID = sellerID;
     }
 
@@ -107,12 +114,12 @@ public class Item {
         this.location = location;
     }
 
-    public String getPostedTime() {
+    public LocalDateTime getPostedTime() {
         return postedTime;
     }
 
-    public void setPostedTime(String postedTime) {
-        this.postedTime = postedTime;
+    public void setPostedTime() {
+        this.postedTime = LocalDateTime.now();
     }
 
     public int getViews() {
@@ -138,9 +145,4 @@ public class Item {
     public void setSold(boolean sold) {
         this.sold = sold;
     }
-
-    
-
-    
-
 }

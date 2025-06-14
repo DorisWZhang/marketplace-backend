@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.campuscart.app.campus_cart.model.Item;
 import java.util.List;
 import java.util.Optional;
-public interface ItemRepository extends JpaRepository<Item, String> {
+public interface ItemRepository extends JpaRepository<Item, Long> {
     
     // Method to find items by seller ID
-    List<Item> findBySellerID(String sellerID);
+    List<Item> findBySellerID(Long sellerID);
     
     // Method to find items by title
     List<Item> findByTitleContaining(String title);
@@ -20,6 +20,6 @@ public interface ItemRepository extends JpaRepository<Item, String> {
     List<Item> findBySoldFalse();
     
     // Method to find items by ID
-    Optional<Item> findById(String id);
+    Optional<Item> findById(Long id);
     
 }
