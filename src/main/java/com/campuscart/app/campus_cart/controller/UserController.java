@@ -10,10 +10,6 @@ import com.campuscart.app.campus_cart.repository.UserRepository;
 
 import java.util.List;
 
-
-
-
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
