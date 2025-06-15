@@ -37,5 +37,29 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/getitems")
+    public ResponseEntity<List<Item>> getAllItems() {
+        try {
+            List<Item> items = itemRepository.findAll();
+            return ResponseEntity.ok(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(null);
+        }
+    }
+
+    @GetMapping("/getitemsbyseller/{sellerID}")
+    public ResponseEntity<List<Item>> getItemsBySeller(@PathVariable Long sellerID) {
+        try {
+            List<Item> items = itemRepository.findBySellerID(sellerID);
+            return ResponseEntity.ok(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(null);
+        }
+    }
+
     
 }
