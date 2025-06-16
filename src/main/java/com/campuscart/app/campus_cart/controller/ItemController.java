@@ -84,5 +84,17 @@ public class ItemController {
         return ResponseEntity.ok(savedItem);
     }
 
+    @DeleteMapping("/deleteitem/{id}")
+    public ResponseEntity<?> deleteItem(@PathVariable Long id) {
+        Optional<Item> item = itemRepository.findById(id);
+        if (item.isPresent()) {
+            itemRepository.delete(item.get());
+            return ResponseEntity.ok("Item deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found.");
+        }
+    }
+
+
     
 }
