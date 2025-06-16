@@ -10,9 +10,14 @@ import com.campuscart.app.campus_cart.model.Item;
 import com.campuscart.app.campus_cart.model.User;
 import com.campuscart.app.campus_cart.repository.ItemRepository;
 import com.campuscart.app.campus_cart.repository.UserRepository;
+import com.cloudinary.http44.api.Response;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/items")
@@ -59,6 +64,24 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body(null);
         }
+    }
+
+    @PutMapping("/updateitem/{id}")
+    public ResponseEntity<?> putMethodName(@PathVariable Long id, @RequestBody Item item) {
+        Item savedItem = itemRepository.findById(id).orElse(null);
+        if (savedItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found."); 
+        } else {
+            savedItem.setTitle(item.getTitle());
+            savedItem.setDescription(item.getDescription()); 
+            savedItem.setPrice(item.getPrice());
+            savedItem.setLocation(item.getLocation());  
+            savedItem.setSold(item.isSold()); // Update the sold status
+            savedItem.setImage(item.getImage()); // Update the image
+            itemRepository.save(savedItem);
+        }
+        
+        return ResponseEntity.ok(savedItem);
     }
 
     
