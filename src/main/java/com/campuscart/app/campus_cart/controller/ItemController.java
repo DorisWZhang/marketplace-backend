@@ -95,6 +95,20 @@ public class ItemController {
         }
     }
 
-
+    @GetMapping("/getitembyid/{id}")
+    public ResponseEntity<?> getItemsByTitle(@PathVariable Long id) {
+        try {
+            Optional<Item> item = itemRepository.findById(id);
+            if (item.isPresent()) {
+                return ResponseEntity.ok(item);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(null);
+        }
+    }
     
 }
