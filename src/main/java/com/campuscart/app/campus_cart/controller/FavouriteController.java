@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.campuscart.app.campus_cart.model.Favourite;
-import com.campuscart.app.campus_cart.repository.FavouriteRepository;   
+import com.campuscart.app.campus_cart.repository.FavouriteRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+   
 
 
 
@@ -65,11 +68,29 @@ public class FavouriteController {
                                      .body("Favourite not found for user: " + userId + " and item: " + itemId); 
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log to console
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body("Failed to remove favourite: " + e.getMessage());
         }
     }
+
+    // Check if a specific item is a favourite for a user
+    // return Boolean indicating if the item is a favourite
+    @GetMapping("/check/{userId}/{itemId}")
+    public Boolean checkFavourite(@PathVariable Long userId, @PathVariable Long itemId) {
+        try {
+            Optional<Favourite> favourite = favouriteRepository.findByUserIdAndItemId(userId, itemId);
+            if (favourite.isPresent()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; 
+        }
+    }
+    
     
     
 }
