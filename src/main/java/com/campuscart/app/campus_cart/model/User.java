@@ -17,7 +17,13 @@ public class User {
     private String password;
     private String university;
     private String location;
+
+    @Column(name = "profile_pic")
     private String profilePic;
+
+    private Double longitude;
+    
+    private Double latitude;
 
     // Getters and Setters
 
@@ -48,6 +54,12 @@ public class User {
     public String getProfilePic() { return profilePic; }
     public void setProfilePic(String profilePic) { this.profilePic = profilePic; }
 
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
+
     @Override
     public String toString() {
         return "User{" +
@@ -60,7 +72,10 @@ public class User {
             ", university='" + university + '\'' +
             ", location='" + location + '\'' +
             ", profilePic='" + profilePic + '\'' +
+            ", latitude=" + latitude +
+            ", longitude=" + longitude +
             '}';
     }
+
 
 }
