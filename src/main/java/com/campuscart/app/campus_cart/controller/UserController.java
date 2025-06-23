@@ -65,6 +65,8 @@ public class UserController {
         savedUser.setGender(user.getGender());
         savedUser.setLocation(user.getLocation());
         savedUser.setUniversity(user.getUniversity());
+        savedUser.setLatitude(user.getLatitude());
+        savedUser.setLongitude(user.getLongitude());
         userRepository.save(savedUser);
         return ResponseEntity.ok(savedUser);
     }
