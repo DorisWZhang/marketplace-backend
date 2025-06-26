@@ -87,5 +87,21 @@ public class UserController {
         userRepository.deleteById(id);
         return ResponseEntity.ok("User deleted successfully.");
     }
+
+    @GetMapping("/getuserbyid/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        try {
+            User user = userRepository.findById(id).orElse(null);
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("Failed to retrieve user: " + e.getMessage());
+        }
+    }
     
 }
