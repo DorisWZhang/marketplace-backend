@@ -110,5 +110,20 @@ public class ItemController {
                                  .body(null);
         }
     }
+
+    @GetMapping("/getitembytitle/{title}")
+    public ResponseEntity<List<Item>> getItemsByTitle(@PathVariable String title) {
+        try {
+            // return all items that contain the title
+            System.out.println("Searching for items with title containing: " + title);
+            List<Item> items = itemRepository.findByTitleContaining(title);
+            return ResponseEntity.ok(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(null);
+        }
+    }
+    
     
 }
