@@ -76,8 +76,10 @@ public class ItemController {
             savedItem.setDescription(item.getDescription()); 
             savedItem.setPrice(item.getPrice());
             savedItem.setLocation(item.getLocation());  
-            savedItem.setSold(item.isSold()); // Update the sold status
-            savedItem.setImage(item.getImage()); // Update the image
+            savedItem.setSold(item.isSold()); // update the sold status
+            savedItem.setImage(item.getImage()); // update the image
+            savedItem.setLatitude(item.getLatitude());
+            savedItem.setLongitude(item.getLongitude());
             itemRepository.save(savedItem);
         }
         

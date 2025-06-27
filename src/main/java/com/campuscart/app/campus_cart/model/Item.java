@@ -27,6 +27,10 @@ public class Item {
     private String image;
     private boolean sold;
 
+    private Double longitude;
+    
+    private Double latitude;
+
     public Item() {
         this.views = 0;
         this.sold = false;
@@ -34,7 +38,9 @@ public class Item {
     }
 
     public Item(Long id, String title, Long sellerID, String description, double price, String location,
-                LocalDateTime postedTime, int views, String image, boolean sold) {
+                LocalDateTime postedTime, int views, String image, boolean sold, Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.id = id;
         this.title = title;
         this.sellerID = sellerID;
@@ -145,4 +151,10 @@ public class Item {
     public void setSold(boolean sold) {
         this.sold = sold;
     }
+
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 }
