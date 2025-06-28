@@ -74,4 +74,8 @@ public class MessageController {
         }   
     }
     
+    @GetMapping("/getLatestConversations/{userId}")
+    public List<Message> getLatestConversations(@PathVariable Long userId) {
+        return messageRepository.findLatestConversations(userId);
+    }
 }
