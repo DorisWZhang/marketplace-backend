@@ -8,10 +8,9 @@ import java.util.List;
 
 // interface extends JpaRepository, which provides methods for CRUD operations on Message entities.
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    Message findBySenderAndReceiver(User sender, User receiver);
-    
     List<Message> findBySenderIdAndReceiverIdOrReceiverIdAndSenderIdOrderByTimestampAsc(
         Long senderId, Long receiverId, Long receiverId2, Long senderId2
     );
-    
+
+    Message findTopBySenderIdAndReceiverIdOrderByTimestampDesc(Long senderId, Long receiverId);
 }

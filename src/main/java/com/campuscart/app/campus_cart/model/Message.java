@@ -11,10 +11,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "sender_id")
     private Long senderId;
+
+    @Column(name = "receiver_id")
     private Long receiverId;
     
-    @Column(columnDefinition = "TEXT")
+
     private String text;
 
     private LocalDateTime timestamp = LocalDateTime.now();

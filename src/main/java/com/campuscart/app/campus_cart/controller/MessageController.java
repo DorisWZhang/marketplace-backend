@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/messages")
-@CrossOrigin(origins = "*")
 public class MessageController {
 
     @Autowired
@@ -42,6 +41,37 @@ public class MessageController {
         return messageRepository.findBySenderIdAndReceiverIdOrReceiverIdAndSenderIdOrderByTimestampAsc(
             user1Id, user2Id, user1Id, user2Id
         );
+    }
+
+    @GetMapping("/getLatestMessages/{userId}")
+    public ResponseEntity<?> getLatestMessages(@PathVariable Long userId) {
+        try {
+            List<Message> latestMessages = messageRepository.findAll();
+            if (latestMessages.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No messages found for user: " + userId);
+            }
+            return ResponseEntity.ok(latestMessages);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log to console
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("Failed to retrieve latest messages: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/getLatestMessage/{senderId}/{receiverId}")
+    public ResponseEntity<?> getLatestMessage(@PathVariable Long senderId, @PathVariable Long receiverId) {
+        try {
+            Message latestMessage = messageRepository.findTopBySenderIdAndReceiverIdOrderByTimestampDesc(senderId, receiverId);
+            if (latestMessage != null) {
+                return ResponseEntity.ok(latestMessage);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No messages found between the users.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log to console
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("Failed to retrieve latest message: " + e.getMessage());
+        }   
     }
     
 }
