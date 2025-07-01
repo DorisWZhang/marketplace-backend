@@ -67,6 +67,7 @@ public class UserController {
         savedUser.setUniversity(user.getUniversity());
         savedUser.setLatitude(user.getLatitude());
         savedUser.setLongitude(user.getLongitude());
+        savedUser.setProfilePic(user.getProfilePic());
         userRepository.save(savedUser);
         return ResponseEntity.ok(savedUser);
     }
