@@ -27,6 +27,9 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@RequestBody Message message) {
         try {
+            if (message.getTimestamp() == null) {
+                message.setTimestamp(java.time.LocalDateTime.now());
+            }
             Message savedMessage = messageRepository.save(message);
             return ResponseEntity.ok(savedMessage);
         } catch (Exception e) {

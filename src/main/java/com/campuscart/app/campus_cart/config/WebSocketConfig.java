@@ -1,12 +1,16 @@
 package com.campuscart.app.campus_cart.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 import com.campuscart.app.campus_cart.model.Message;
+import com.campuscart.app.campus_cart.repository.MessageRepository;
+
 import java.time.LocalDateTime;
 
 @Configuration
@@ -26,9 +30,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS(); // Fallback option for browsers that don't support WebSocket
     }
 
-    @MessageMapping("/chat.private.{receiverId}")
-    public void sendMessage(@DestinationVariable Long receiverId, Message message) {
 
-
-    }
  }
