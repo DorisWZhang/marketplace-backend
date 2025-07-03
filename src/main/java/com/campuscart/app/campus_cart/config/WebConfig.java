@@ -13,7 +13,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // allow all paths
-                    .allowedOrigins("http://localhost:3000") // allow your React app origin
+                    .allowedOrigins("http://localhost:3000", "https://campus-cart-three.vercel.app/") // allow your React app origin
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // allowed methods
                     .allowCredentials(true);
             }
