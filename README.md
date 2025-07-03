@@ -3,3 +3,18 @@ Campus Cart is a student-focused marketplace platform that makes it easy for stu
 Check out Campus Cart here! https://campus-cart-three.vercel.app/
 
 Checkout the frontend repo here: https://github.com/DorisWZhang/marketplace-frontend
+
+<h3> Technologies </h3>
+The frontend is developed using <strong>React and JavaScript</strong>, and the backend is powered by <strong>Java with Spring Boot</strong>, integrated with a <strong>PostgreSQL</strong> database for data management. Other tools used are the <strong>Google Maps API</strong> for location-based features and <strong>Cloudinary API</strong> for image uploads.
+
+<br></br>
+
+![image](https://github.com/user-attachments/assets/4a605baa-2c22-4335-81dd-ed2032b6f569)
+
+<img src="https://github.com/user-attachments/assets/ed4e46ee-f361-43d9-9e3a-f3d1ccf3553b" width="500" />
+
+![image](https://github.com/user-attachments/assets/b2058dca-54c2-4030-81d7-6b35715d1d48)
+
+![image](https://github.com/user-attachments/assets/83654734-1e91-44b4-b33a-71aa33dbce25)
+
+
