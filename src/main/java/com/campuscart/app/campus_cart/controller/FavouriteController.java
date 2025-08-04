@@ -25,7 +25,7 @@ public class FavouriteController {
         this.favouriteRepository = favouriteRepository;
     }
     
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         try {
             System.out.println("Adding favourite: " + favourite);
@@ -38,7 +38,7 @@ public class FavouriteController {
         }
     }
 
-    @GetMapping("/getfavourites/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<Favourite>> getFavouritesByUser(@PathVariable Long userId) {
         try {
             List<Favourite> favourites = favouriteRepository.findByUserId(userId);
@@ -50,7 +50,7 @@ public class FavouriteController {
         }
     }
 
-    @DeleteMapping("/remove/{userId}/{itemId}")
+    @DeleteMapping("/{userId}/{itemId}")
     public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long itemId) {
         try {
             Optional<Favourite> favourite = favouriteRepository.findByUserIdAndItemId(userId, itemId);
@@ -70,7 +70,7 @@ public class FavouriteController {
 
     // Check if a specific item is a favourite for a user
     // return Boolean indicating if the item is a favourite
-    @GetMapping("/check/{userId}/{itemId}")
+    @GetMapping("/{userId}/{itemId}")
     public Boolean checkFavourite(@PathVariable Long userId, @PathVariable Long itemId) {
         try {
             Optional<Favourite> favourite = favouriteRepository.findByUserIdAndItemId(userId, itemId);

@@ -29,7 +29,7 @@ public class ItemController {
         this.itemRepository = itemRepository;
     }
 
-    @PostMapping("/createitem")
+    @PostMapping("")
     public ResponseEntity<?> createItem(@RequestBody Item item) {
         try {
             System.out.println("Creating item: " + item);
@@ -42,7 +42,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/getitems")
+    @GetMapping("")
     public ResponseEntity<List<Item>> getAllItems() {
         try {
             List<Item> items = itemRepository.findAll();
